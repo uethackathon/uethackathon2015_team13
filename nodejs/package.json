@@ -2,5 +2,7 @@
   "name": "blackboard",
   "version": "0.0.1",
   "description": "John Cenaaaa",
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.10.2"
+  }
 }
