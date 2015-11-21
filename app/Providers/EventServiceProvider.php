@@ -2,11 +2,16 @@
 
 namespace App\Providers;
 
+use App\Feedback;
+use App\Jobs\SentenceProcessing;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
 {
+    use DispatchesJobs;
+
     /**
      * The event listener mappings for the application.
      *
@@ -28,6 +33,8 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot($events);
 
-        //
+        Feedback::created(function ($item) {
+            $this->dispatch((new SentenceProcessing($item)));
+        });
     }
 }

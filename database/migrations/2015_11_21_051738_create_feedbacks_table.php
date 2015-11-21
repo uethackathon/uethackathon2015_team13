@@ -18,13 +18,11 @@ class CreateFeedbacksTable extends Migration
             $table->string('email');
             $table->string('title');
             $table->text('content');
-            $table->decimal('probability_positive', 6, 3);
-            $table->decimal('probability_negative', 6, 3);
-            $table->decimal('probability_neutral', 6, 3);
+            $table->binary('probabilities');
             $table->integer('status_id')->unsigned();
-            $table->foreign('status_id')->references('id')->on('categories')->onDelete('cascade');
+            // $table->foreign('status_id')->references('id')->on('categories')->onDelete('cascade');
             $table->integer('visibility_id')->unsigned();
-            $table->foreign('visibility_id')->references('id')->on('categories')->onDelete('cascade');
+            // $table->foreign('visibility_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -36,6 +34,10 @@ class CreateFeedbacksTable extends Migration
      */
     public function down()
     {
+        /*Schema::table('feedbacks', function (Blueprint $table) {
+            $table->dropForeign('feedbacks_status_id_foreign');
+            $table->dropForeign('feedbacks_visibility_id_foreign');
+        });*/
         Schema::drop('feedbacks');
     }
 }

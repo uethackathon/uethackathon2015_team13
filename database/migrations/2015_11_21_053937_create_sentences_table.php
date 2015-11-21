@@ -30,6 +30,10 @@ class CreateSentencesTable extends Migration
      */
     public function down()
     {
+        Schema::table('sentences', function (Blueprint $table) {
+            $table->dropForeign('sentences_feedback_id_foreign');
+            $table->dropForeign('sentences_classification_id_foreign');
+        });
         Schema::drop('sentences');
     }
 }
