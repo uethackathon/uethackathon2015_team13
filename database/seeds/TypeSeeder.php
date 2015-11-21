@@ -19,9 +19,9 @@ class TypeSeeder extends Seeder
         ]);
 
         Type::create(["name" => Type::$classificationName])->categories()->saveMany([
-            new Category(["name" => "positive"]),
             new Category(["name" => "negative"]),
             new Category(["name" => "neutral"]),
+            new Category(["name" => "positive"]),            
         ]);
 
         Type::create(["name" => Type::$statusName])->categories()->saveMany([

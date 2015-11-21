@@ -14,11 +14,11 @@ class CreateFeedbacksTable extends Migration
     {
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email');
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
             $table->string('title');
             $table->text('content');
-            $table->binary('probabilities');
+            $table->text('probabilities');
             $table->integer('status_id')->unsigned();
             // $table->foreign('status_id')->references('id')->on('categories')->onDelete('cascade');
             $table->integer('visibility_id')->unsigned();

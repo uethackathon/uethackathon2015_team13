@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Feedback;
 use App\Jobs\SentenceProcessing;
+use App\Sentence;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -35,6 +36,12 @@ class EventServiceProvider extends ServiceProvider
 
         Feedback::created(function ($item) {
             $this->dispatch((new SentenceProcessing($item)));
+        });
+
+        Sentence::saved(function ($item) {
+            if ( $item->feedback ) {
+                $item->feedback->calculateProbabilities();
+            }
         });
     }
 }

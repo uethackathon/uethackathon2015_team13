@@ -36,22 +36,22 @@ class SentenceProcessing extends Job implements SelfHandling, ShouldQueue
     public function handle()
     {
         $client = new Client([
-            'base_uri' => 'http://feedback.dev/',
-            'timeout'  => 2.0,
+            'base_uri' => 'http://sp.feedback.dev/',
+            'timeout'  => 5.0,
         ]);
 
-        $response = $client->get('sentence-processing');
-
-        /*$response = $client->post('process', [
-            'feedback' => $this->feedback->content
-        ]);*/
+        $response = $client->request('POST', 'process', [
+            'form_params' => ['content' => $this->feedback->content]
+        ]);
         
         try {
             $jsonData = json_decode($response->getBody());
             $jsonData = collect($jsonData);
             $classifications = Category::classifications()->get()->keyBy('name');
             $sentences = [];
-            $jsonData->each(function ($item, $key) use ($classifications, &$sentences) {
+            $jsonData->sortBy(function ($item, $key) use ($classifications) {
+                return $classifications->get($item->classification)->id;
+            })->each(function ($item, $key) use ($classifications, &$sentences) {
                 $sentence = new Sentence([
                     "content" => $item->content,
                     "classification_id" => $classifications->get($item->classification)->id

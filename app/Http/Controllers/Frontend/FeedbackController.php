@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
+use App\Feedback;
 use App\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Status;
+use App\Visibility;
+use Illuminate\Http\Request;
+use \Cache;
 
 class FeedbackController extends Controller
 {
@@ -16,7 +19,15 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        //
+        $feedbacks = Cache::tags(['feedbacks', 'index', 'isPublic'])->get('feedbacks.index.isPublic');
+        if ( !$feedbacks ) {
+            $feedbacks = Feedback::with('status')->isPublic()->get()->sortByDesc(function ($feedback, $key) {
+                return $feedback->probabilities[0];
+            });
+            Cache::tags(['feedbacks', 'index', 'isPublic'])->put('feedbacks.index.isPublic', $feedbacks, 1);
+        }
+        
+        return view('frontend.feedbacks.index', ['feedbacks' => $feedbacks]);
     }
 
     /**
@@ -26,7 +37,7 @@ class FeedbackController extends Controller
      */
     public function create()
     {
-        //
+        return view('frontend.feedbacks.create');
     }
 
     /**
@@ -37,7 +48,16 @@ class FeedbackController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            "title" => "required",
+            "content" => "required|min:10"
+        ]);
+        $data = $request->all();
+        $data['visibility_id'] = Visibility::actual()->where('name', 'private')->first()->id;
+        $data['status_id'] = Status::actual()->where('name', 'open')->first()->id;
+        $feedback = Feedback::create($data);
+        Cache::tags('feedbacks')->flush();
+        return redirect(route('feedbacks.index'));
     }
 
     /**
@@ -48,40 +68,14 @@ class FeedbackController extends Controller
      */
     public function show($id)
     {
-        //
+        
+        $feedback = Cache::tags(['feedbacks', 'show'])->get('feedbacks.show.'.$id);
+        if ( !$feedback ) {
+            $feedback = Feedback::with('status')->isPublic()->find($id);
+            Cache::tags(['feedbacks', 'show'])->put('feedbacks.show.'.$id, $feedback, 1);
+        }
+        if (!$feedback) return abort(404);
+        return view('frontend.feedbacks.show', ['feedback' => $feedback]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
