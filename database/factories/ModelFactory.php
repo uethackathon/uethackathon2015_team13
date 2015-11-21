@@ -24,6 +24,7 @@ $factory->define(App\Feedback::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
-        'content' => $faker->paragraph,
+        'title' => $faker->sentence,
+        'content' => $faker->paragraph(20),
     ];
 });

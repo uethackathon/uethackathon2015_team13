@@ -32,6 +32,17 @@ Route::group(['prefix' => '/'], function () {
 	});
 });
 
-Route::get('/sentence-processing', function () {
-	return '[{"content":"first content","classification":"neutral"},{"content":"second content","classification":"negative"},{"content":"third content","classification":"positive"}]';
-});
+Route::post('/sentence-processing', ['as' => 'sentence.processing', 'uses' => function () {
+	$data = \Request::all();
+	$result = preg_split('/(?<=[.?!;:])\s+/', $data['content'], -1, PREG_SPLIT_NO_EMPTY);
+	$classifications = ["neutral", "positive", "negative"];
+	$collection = collect([]);
+	foreach ($result as $sentence) {
+		$sentenceObj = new stdClass;
+		$sentenceObj->content = $sentence;
+		$sentenceObj->classification = $classifications[0];
+		shuffle($classifications);
+		$collection->push($sentenceObj);
+	}
+	return $collection->toJson();
+}]);
