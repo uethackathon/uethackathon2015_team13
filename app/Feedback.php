@@ -13,6 +13,11 @@ class Feedback extends Model
     	return $this->hasMany(Sentence::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function status()
     {
     	return $this->belongsTo(Status::class);
@@ -22,6 +27,4 @@ class Feedback extends Model
     {
     	return $this->belongsTo(Visibility::class);
     }
-
-
 }
