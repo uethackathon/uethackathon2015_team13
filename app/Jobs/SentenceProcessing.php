@@ -36,14 +36,13 @@ class SentenceProcessing extends Job implements SelfHandling, ShouldQueue
     public function handle()
     {
         $client = new Client([
-            'base_uri' => 'http://sp.feedback.dev/',
-            'timeout'  => 5.0,
+            'base_uri' => env('SP_ENDPOINT','http://feedback.dev/'),
+            'timeout'  => 30.0,
         ]);
 
         $response = $client->request('POST', 'process/', [
-            'form_params' => ['content' => $this->feedback->content]
+            'form_params' => ['content' => $this->feedback->content],
         ]);
-        
         try {
             $jsonData = json_decode($response->getBody());
             $jsonData = collect($jsonData->data);

@@ -8,6 +8,7 @@ use App\Sentence;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Cache;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -35,7 +36,16 @@ class EventServiceProvider extends ServiceProvider
         parent::boot($events);
 
         Feedback::created(function ($item) {
+            Cache::tags('feedbacks')->flush();
             $this->dispatch((new SentenceProcessing($item)));
+        });
+
+        Feedback::updated(function ($item) {
+            Cache::tags('feedbacks')->flush();
+        });
+
+        Feedback::deleted(function ($item) {
+            Cache::tags('feedbacks')->flush();
         });
 
         Sentence::saved(function ($item) {
