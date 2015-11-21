@@ -40,13 +40,13 @@ class SentenceProcessing extends Job implements SelfHandling, ShouldQueue
             'timeout'  => 5.0,
         ]);
 
-        $response = $client->request('POST', 'process', [
+        $response = $client->request('POST', 'process/', [
             'form_params' => ['content' => $this->feedback->content]
         ]);
         
         try {
             $jsonData = json_decode($response->getBody());
-            $jsonData = collect($jsonData);
+            $jsonData = collect($jsonData->data);
             $classifications = Category::classifications()->get()->keyBy('name');
             $sentences = [];
             $jsonData->sortBy(function ($item, $key) use ($classifications) {
