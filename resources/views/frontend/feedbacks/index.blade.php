@@ -34,6 +34,7 @@
 					</td>
 					<td>
 						<div class="progress">
+							@if( count($feedback->probabilities) > 0 )
 							@foreach ($feedback->probabilities as $probability)
 								<?php
 									$percentage = $probability['probability']*100;
@@ -42,6 +43,7 @@
 									{{number_format($percentage, 2)}}%
 								</div>
 							@endforeach
+							@endif
 						</div>
 					</td>
 				</tr>

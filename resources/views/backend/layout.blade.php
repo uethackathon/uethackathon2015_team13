@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
-    <meta name="description" content="Frontend of Feedback">
+    <meta name="description" content="backend of Feedback">
     <meta name="author" content="0x1115">
     <meta name="_token" content="{{ csrf_token() }}">
     <!-- Bootstrap core CSS -->
-    <link href="/assets/frontend/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/backend/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	@section('head-append')
         <!-- Custom styles for this template -->
-        <link href="/assets/frontend/css/frontend.css" rel="stylesheet">
+        <link href="/assets/backend/css/backend.css" rel="stylesheet">
 	@show
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -24,7 +24,7 @@
     </head>
     <body>
         @section('body-prepend')
-            @include('frontend._partials.nav')
+            @include('backend._partials.nav')
         @show
         @section('body-content')
         @show
@@ -40,9 +40,9 @@
                 }
             });
             </script>
-            <script src="/assets/frontend/bootstrap/js/bootstrap.min.js"></script>
+            <script src="/assets/backend/bootstrap/js/bootstrap.min.js"></script>
             <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-            <script src="/assets/frontend/bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+            <script src="/assets/backend/bootstrap/js/ie10-viewport-bug-workaround.js"></script>
         @show
     </body>
 </html>
