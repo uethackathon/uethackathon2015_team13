@@ -47,11 +47,11 @@
 									The feedback has not been processed yet
 									@endif
 								</td>
-							</tr>
-							<tr>
-								<a href="{{ route('backend.feedbacks.comments', $feedback->id) }}" class="btn btn-primary">
-									{{ count($feedback->comments) }}
-								</a>
+								<td>
+									<a href="{{ route('backend.feedbacks.comments', $feedback->id) }}" class="btn btn-default btn-xs">
+										{{ count($feedback->comments) }} comment(s)
+									</a>
+								</td>
 							</tr>
 						@endforeach
 						</tbody>
