@@ -28,6 +28,18 @@ class FeedbackController extends Controller
         return view('backend.feedbacks.index', ['feedbacks' => $feedbacks]);
     }
 
+    public function comments($id)
+    {
+        $feedback = Feedback::find($id);
+        $comments = $feedback->comments;
+        $visibilities = Visibility::actual()->get()->lists('name', 'id');
+        return view('backend.comments.index', [
+            'feedback' => $feedback,
+            'comments' => $comments,
+            'visibilities' => $visibilities,
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -56,12 +68,11 @@ class FeedbackController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            "title" => "required",
-            "content" => "required|min:10",
             "visibility_id" => "required|exists:categories,id",
             "status_id" => "required|exists:categories,id"
         ]);
         $data = $request->all();
+        unset($data['name'], $data['email'], $data['content'], $data['title']);
         $feedback = Feedback::find($id);
         $feedback->update($data);
         return redirect(route('backend.feedbacks.index'));

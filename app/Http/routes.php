@@ -27,6 +27,7 @@ Route::group(['prefix' => '/'], function () {
 	    Route::group(['prefix' => '/backend'], function () {
 	    	Route::get('/', ['as' => 'backend.dashboard', 'uses' => 'Backend\DashboardController@index']);
 	    	Route::resource('feedbacks', 'Backend\FeedbackController');
+			Route::get('feedbacks/{feedbacks}/comments', ['as' => 'backend.feedbacks.comments', 'uses' => 'Backend\FeedbackController@comments']);
 	    	Route::resource('comments', 'Backend\CommentController');
 	    });
 	});

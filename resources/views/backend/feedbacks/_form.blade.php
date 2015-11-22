@@ -25,25 +25,25 @@
 <div class="form-group">
 	{!! Form::label('name', 'Tên', array('class'=>'col-sm-2 control-label')) !!}
 	<div class="col-sm-8">
-	{!! Form::text('name', old('name') ? old('name') : (isset($feedback) ? $feedback->name : ''), ['class' => 'form-control']) !!}
+	{!! Form::text('name', old('name') ? old('name') : (isset($feedback) ? $feedback->name : ''), ['class' => 'form-control', 'disabled'=>'disabled']) !!}
 	</div>
 </div>
 <div class="form-group">
 	{!! Form::label('email', 'Email', array('class'=>'col-sm-2 control-label')) !!}
 	<div class="col-sm-8">
-	{!! Form::email('email', old('email') ? old('email') : (isset($feedback) ? $feedback->email : ''), ['class' => 'form-control']) !!}
+	{!! Form::email('email', old('email') ? old('email') : (isset($feedback) ? $feedback->email : ''), ['class' => 'form-control', 'disabled'=>'disabled']) !!}
 	</div>
 </div>
 <div class="form-group">
 	{!! Form::label('title', 'Title', array('class'=>'col-sm-2 control-label')) !!}
 	<div class="col-sm-8">
-	{!! Form::text('title', old('title') ? old('title') : (isset($feedback) ? $feedback->title : ''), ['class' => 'form-control']) !!}
+	{!! Form::text('title', old('title') ? old('title') : (isset($feedback) ? $feedback->title : ''), ['class' => 'form-control', 'disabled'=>'disabled']) !!}
 	</div>
 </div>
 <div class="form-group">
 	{!! Form::label('content', 'Nội dung', array('class'=>'col-sm-2 control-label')) !!}
 	<div class="col-sm-8">
-		{!! Form::textarea('content', old('content'), ['class' => 'form-control']) !!}
+		{!! Form::textarea('content', old('content'), ['class' => 'form-control', 'disabled'=>'disabled']) !!}
 	</div>
 </div>
 <div class="form-group">
