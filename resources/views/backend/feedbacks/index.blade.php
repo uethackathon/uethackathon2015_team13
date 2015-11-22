@@ -63,6 +63,12 @@
 		$('.progress-bar-neutral').addClass('progress-bar-warning');
 		$('.progress-bar-positive').addClass('progress-bar-success');
 		$('.progress-bar-negative').addClass('progress-bar-danger');
+		$('.label-public').addClass('label-info');
+		$('.label-private').addClass('label-default');
+
+		$('.label-open').addClass('label-danger');
+		$('.label-onhold').addClass('label-warning');
+		$('.label-closed').addClass('label-success');
 	});
 </script>
 @endsection
