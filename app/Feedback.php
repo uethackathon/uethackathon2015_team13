@@ -47,6 +47,11 @@ class Feedback extends Model
         });
     }
 
+    public function scopeIsProcessed($query)
+    {
+        return $query->has('sentences');
+    }
+
     public function getNameAttribute($value)
     {
         return $value != null ? $value : 'Ẩn danh';

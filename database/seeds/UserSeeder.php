@@ -17,5 +17,11 @@ class UserSeeder extends Seeder
         $user->name = "Anonymous user";
         $user->password = bcrypt(str_random(256));
         $user->save();
+
+        $user = User::find(2);
+        $user->name = "Moderator";
+        $user->email = "mod@feedback.dev";
+        $user->password = bcrypt('uethackathon');
+        $user->save();
     }
 }

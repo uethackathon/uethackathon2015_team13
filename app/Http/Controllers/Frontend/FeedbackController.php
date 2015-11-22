@@ -21,7 +21,7 @@ class FeedbackController extends Controller
     {
         $feedbacks = Cache::tags(['feedbacks', 'index', 'isPublic'])->get('feedbacks.index.isPublic');
         if ( !$feedbacks ) {
-            $feedbacks = Feedback::with('status')->isPublic()->get()->sortByDesc(function ($feedback, $key) {
+            $feedbacks = Feedback::with('status')->isPublic()->isProcessed()->get()->sortByDesc(function ($feedback, $key) {
                 return $feedback->probabilities[0];
             });
             Cache::tags(['feedbacks', 'index', 'isPublic'])->put('feedbacks.index.isPublic', $feedbacks, 1);
@@ -56,7 +56,6 @@ class FeedbackController extends Controller
         $data['visibility_id'] = Visibility::actual()->where('name', 'private')->first()->id;
         $data['status_id'] = Status::actual()->where('name', 'open')->first()->id;
         $feedback = Feedback::create($data);
-        Cache::tags('feedbacks')->flush();
         return redirect(route('feedbacks.index'));
     }
 
