@@ -39,7 +39,7 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            "content"   =>  "required|min:10",
+            "content"   =>  "required|min:3",
             "visibility_id" => "required|exists:categories,id",
             "feedback_id" => "required|exists:feedbacks,id",
         ]);
@@ -48,7 +48,7 @@ class CommentController extends Controller
 
         $data['user_id'] = \Auth::user() ? \Auth::user()->id : 1;
         $comment = Comment::create($data);
-        return redirect(route('backend.feedbacks.comments', $comment->feedback_id));
+        return redirect(route('backend.feedbacks.comments', $request->get('feedback_id')));
     }
 
     /**

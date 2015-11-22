@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Comment;
 use App\Feedback;
 use App\Jobs\SentenceProcessing;
 use App\Sentence;
@@ -46,6 +47,14 @@ class EventServiceProvider extends ServiceProvider
 
         Feedback::deleted(function ($item) {
             Cache::tags('feedbacks')->flush();
+        });
+
+        Comment::saved(function ($item) {
+            Cache::tags('comments')->flush();
+        });
+
+        Comment::saved(function ($item) {
+            Cache::tags('comments')->flush();
         });
 
         Sentence::saved(function ($item) {

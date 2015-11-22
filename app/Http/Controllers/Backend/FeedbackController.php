@@ -19,10 +19,10 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        $feedbacks = Cache::tags(['feedbacks', 'index'])->get('feedbacks.index');
+        $feedbacks = Cache::tags(['feedbacks', 'index', 'comments'])->get('feedbacks.index');
         if ( !$feedbacks ) {
             $feedbacks = Feedback::with('status', 'visibility', 'comments')->get()->sortBy('created_at');
-            Cache::tags(['feedbacks', 'index'])->put('feedbacks.index', $feedbacks, 1);
+            Cache::tags(['feedbacks', 'index', 'comments'])->put('feedbacks.index', $feedbacks, 1);
         }
         
         return view('backend.feedbacks.index', ['feedbacks' => $feedbacks]);
