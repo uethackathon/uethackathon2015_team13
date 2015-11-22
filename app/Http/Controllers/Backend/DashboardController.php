@@ -14,7 +14,7 @@ class DashboardController extends Controller
     {
     	$feedbacks = Cache::tags(['feedbacks', 'index', 'notClosed'])->get('feedbacks.index.notClosed');
         if ( !$feedbacks ) {
-            $feedbacks = Feedback::with('status', 'visibility')->isNotStatus('closed')->get()->sortByDesc(function ($feedback, $key) {
+            $feedbacks = Feedback::with('status', 'visibility', 'comments')->isNotStatus('closed')->get()->sortByDesc(function ($feedback, $key) {
                 return $feedback->probabilities[0];
             });
             Cache::tags(['feedbacks', 'index', 'notClosed'])->put('feedbacks.index.notClosed', $feedbacks, 1);

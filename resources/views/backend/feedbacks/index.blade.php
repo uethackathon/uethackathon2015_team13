@@ -18,7 +18,8 @@
 								<th style="text-align: center">Visibility</th>
 								<th>Name</th>
 								<th>Email</th>
-								<th>Probabilities</th>								
+								<th>Probabilities</th>
+								<th>Comments</th>						
 							</tr>
 						</thead>
 						<tbody>
@@ -46,6 +47,11 @@
 									The feedback has not been processed yet
 									@endif
 								</td>
+							</tr>
+							<tr>
+								<a href="{{ route('backend.feedbacks.comments', $feedback->id) }}" class="btn btn-primary">
+									{{ count($feedback->comments) }}
+								</a>
 							</tr>
 						@endforeach
 						</tbody>

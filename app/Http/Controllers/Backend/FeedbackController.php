@@ -21,7 +21,7 @@ class FeedbackController extends Controller
     {
         $feedbacks = Cache::tags(['feedbacks', 'index'])->get('feedbacks.index');
         if ( !$feedbacks ) {
-            $feedbacks = Feedback::with('status', 'visibility')->get()->sortBy('created_at');
+            $feedbacks = Feedback::with('status', 'visibility', 'comments')->get()->sortBy('created_at');
             Cache::tags(['feedbacks', 'index'])->put('feedbacks.index', $feedbacks, 1);
         }
         
