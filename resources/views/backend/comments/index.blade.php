@@ -45,7 +45,7 @@
                 <div class="sidebar-module">
                     <h4>Comments</h4>
                     <form action="{{route('backend.comments.store')}}" method="POST" accept-charset="utf-8" class="clearfix">
-                        <div class="form-group">
+                        <div class="form-group row">
                             <textarea name="content" class="form-control" rows="3">{{old('content')}}</textarea>
                         </div>
                         <div class="col-sm-3 col-sm-offset-9">
@@ -59,7 +59,6 @@
                                 <input type="hidden" name="feedback_id" value="{{$feedback->id}}">
                             </div>
                         </div>
-
                     </form>
                     <div class="comments">
                         @foreach($feedback->comments as $comment)

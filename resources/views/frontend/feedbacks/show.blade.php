@@ -36,10 +36,15 @@
 						<div class="form-group">
 							<textarea name="content" class="form-control" rows="3">{{old('content')}}</textarea>
 						</div>
-						<div class="form-group pull-right">
+						<div class="form-group" style="margin-top:1em">
 							{{ csrf_field() }}
 							<input type="hidden" name="feedback_id" value="{{$feedback->id}}">
-							<button type="submit" class="btn btn-primary btn-sm">Submit</button>
+							<div class="col-sm-6">
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</div>
+							<div class="col-sm-4 col-sm-offset-1">
+								{!! app('captcha')->display(); !!}
+							</div>
 						</div>
 					</form>
 					<div class="comments">

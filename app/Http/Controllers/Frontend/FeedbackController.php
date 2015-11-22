@@ -50,7 +50,8 @@ class FeedbackController extends Controller
     {
         $this->validate($request, [
             "title" => "required",
-            "content" => "required|min:10"
+            "content" => "required|min:10",
+            'g-recaptcha-response' => 'required|captcha'
         ]);
         $data = $request->all();
         $data['visibility_id'] = Visibility::actual()->where('name', 'private')->first()->id;
