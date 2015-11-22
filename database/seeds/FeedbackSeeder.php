@@ -14,7 +14,7 @@ class FeedbackSeeder extends Seeder
      */
     public function run()
     {
-        factory(Feedback::class, 2)->create()->each(function ($item) {
+        factory(Feedback::class, 5)->create()->each(function ($item) {
         	$visibility = Visibility::actual()->orderByRaw("RAND()")->first();
     		$status = Status::actual()->orderByRaw("RAND()")->first();
         	$item->visibility()->associate($visibility);

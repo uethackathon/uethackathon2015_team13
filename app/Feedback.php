@@ -52,6 +52,13 @@ class Feedback extends Model
         return $query->has('sentences');
     }
 
+    public function scopeIsNotStatus($query, $status)
+    {
+        return $this->whereHas('status', function($categoryQuery) use ($status) {
+            $categoryQuery->where('name', '!=', $status);
+        })->orderBy('created_at', 'desc');
+    }
+
     public function getNameAttribute($value)
     {
         return $value != null ? $value : 'Ẩn danh';

@@ -21,10 +21,11 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Feedback::class, function (Faker\Generator $faker) {
+    $faker->addProvider(new \App\Providers\Faker($faker));
     return [
         'name' => $faker->name,
         'email' => $faker->email,
         'title' => $faker->sentence,
-        'content' => $faker->paragraph(20),
+        'content' => $faker->feedback(),
     ];
 });

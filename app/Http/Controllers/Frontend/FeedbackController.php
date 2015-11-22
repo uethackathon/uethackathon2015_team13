@@ -67,7 +67,6 @@ class FeedbackController extends Controller
      */
     public function show($id)
     {
-        
         $feedback = Cache::tags(['feedbacks', 'show'])->get('feedbacks.show.'.$id);
         if ( !$feedback ) {
             $feedback = Feedback::with('status')->isPublic()->find($id);
