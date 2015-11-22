@@ -21,7 +21,8 @@ class CommentController extends Controller
     {
         $this->validate($request, [
             'content' => 'required',
-            'feedback_id' => 'required|exists:feedbacks,id'
+            'feedback_id' => 'required|exists:feedbacks,id',
+            'g-recaptcha-response' => 'required|captcha'
         ]);
         $data = $request->all();
         $data['visibility_id'] = Visibility::actual()->where('name', 'public')->first()->id;

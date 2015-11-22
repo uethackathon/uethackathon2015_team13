@@ -7,11 +7,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">Feedback</a>
+      <a class="navbar-brand" href="{{ route('backend.dashboard') }}">Feedback</a>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="/">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="{{ route('backend.feedbacks.index') }}">Feedbacks</a></li>
       </ul>
     </div><!--/.nav-collapse -->

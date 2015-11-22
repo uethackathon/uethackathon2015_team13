@@ -31,15 +31,34 @@
 					</blockquote>
 				</div>
 				<div class="sidebar-module">
+					<div class="row">
+						<div class="col-md-12">
+						    @if(count($errors) > 0)
+						        <div class="alert alert-danger">
+						            <strong>Lỗi:</strong>
+						            <ul>
+						                @foreach($errors->all() as $error)
+						                    <li>{{$error}}</li>
+						                @endforeach
+						            </ul>
+						        </div>
+						    @endif
+						</div>
+					</div>
 					<h4>Comments</h4>
 					<form action="{{route('comments.store')}}" method="POST" accept-charset="utf-8" class="clearfix">
 						<div class="form-group">
 							<textarea name="content" class="form-control" rows="3">{{old('content')}}</textarea>
 						</div>
-						<div class="form-group pull-right">
+						<div class="form-group" style="margin-top:1em">
 							{{ csrf_field() }}
 							<input type="hidden" name="feedback_id" value="{{$feedback->id}}">
-							<button type="submit" class="btn btn-primary btn-sm">Submit</button>
+							<div class="col-sm-6">
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</div>
+							<div class="col-sm-4 col-sm-offset-1">
+								{!! app('captcha')->display(); !!}
+							</div>
 						</div>
 					</form>
 					<div class="comments">

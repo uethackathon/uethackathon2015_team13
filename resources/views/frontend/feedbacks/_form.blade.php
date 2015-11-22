@@ -35,6 +35,12 @@
 	</div>
 </div>
 <div class="form-group">
+	{!! Form::label('captcha', 'Captcha', array('class'=>'col-sm-2 control-label')) !!}
+	<div class="col-sm-8">
+		{!! app('captcha')->display(); !!}
+	</div>
+</div>
+<div class="form-group">
 	<div class="col-sm-8 col-sm-offset-2">
 		{!! Form::submit('Lưu', ['class' => 'btn btn-primary']) !!}
         <a href="javascript:window.history.back()" class="btn btn-default" title="">Hủy</a>

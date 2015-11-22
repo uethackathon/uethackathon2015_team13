@@ -23,5 +23,11 @@ class UserSeeder extends Seeder
         $user->email = "mod@feedback.dev";
         $user->password = bcrypt('uethackathon');
         $user->save();
+
+        $user = User::find(3);
+        $user->name = "Staff";
+        $user->email = "staff@feedback.dev";
+        $user->password = bcrypt('staff');
+        $user->save();
     }
 }

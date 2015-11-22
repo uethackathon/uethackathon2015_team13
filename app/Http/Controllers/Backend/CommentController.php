@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Comment;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -16,7 +17,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -37,7 +38,17 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            "content"   =>  "required|min:3",
+            "visibility_id" => "required|exists:categories,id",
+            "feedback_id" => "required|exists:feedbacks,id",
+        ]);
+
+        $data = $request->all();
+
+        $data['user_id'] = \Auth::user() ? \Auth::user()->id : 1;
+        $comment = Comment::create($data);
+        return redirect(route('backend.feedbacks.comments', $request->get('feedback_id')));
     }
 
     /**
@@ -82,6 +93,11 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comment = Comment::find($id);
+        if ($comment->user_id == 1 || $comment->user_id == \Auth::user()->id){
+            $comment->delete();
+        }
+
+        return $comment;
     }
 }

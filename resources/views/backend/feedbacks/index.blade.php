@@ -18,7 +18,8 @@
 								<th style="text-align: center">Visibility</th>
 								<th>Name</th>
 								<th>Email</th>
-								<th>Probabilities</th>								
+								<th>Probabilities</th>
+								<th>Comments</th>						
 							</tr>
 						</thead>
 						<tbody>
@@ -46,6 +47,11 @@
 									The feedback has not been processed yet
 									@endif
 								</td>
+								<td>
+									<a href="{{ route('backend.feedbacks.comments', $feedback->id) }}" class="btn btn-default btn-xs">
+										{{ count($feedback->comments) }} comment(s)
+									</a>
+								</td>
 							</tr>
 						@endforeach
 						</tbody>
@@ -63,6 +69,12 @@
 		$('.progress-bar-neutral').addClass('progress-bar-warning');
 		$('.progress-bar-positive').addClass('progress-bar-success');
 		$('.progress-bar-negative').addClass('progress-bar-danger');
+		$('.label-public').addClass('label-info');
+		$('.label-private').addClass('label-default');
+
+		$('.label-open').addClass('label-danger');
+		$('.label-onhold').addClass('label-warning');
+		$('.label-closed').addClass('label-success');
 	});
 </script>
 @endsection
