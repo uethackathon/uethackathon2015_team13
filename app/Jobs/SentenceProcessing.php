@@ -43,7 +43,7 @@ class SentenceProcessing extends Job implements SelfHandling, ShouldQueue
         $response = $client->request('POST', 'process/', [
             'form_params' => ['content' => $this->feedback->content],
         ]);
-        try {
+        
             $jsonData = json_decode($response->getBody());
             $jsonData = collect($jsonData->data);
             $classifications = Category::classifications()->get()->keyBy('name');
@@ -58,9 +58,5 @@ class SentenceProcessing extends Job implements SelfHandling, ShouldQueue
                 array_push($sentences, $sentence);
             });
             $this->feedback->sentences()->saveMany($sentences);
-
-        } catch (\Exception $e) {
-            throw $e;
-        }
     }
 }

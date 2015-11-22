@@ -31,6 +31,20 @@
 					</blockquote>
 				</div>
 				<div class="sidebar-module">
+					<div class="row">
+						<div class="col-md-12">
+						    @if(count($errors) > 0)
+						        <div class="alert alert-danger">
+						            <strong>Lỗi:</strong>
+						            <ul>
+						                @foreach($errors->all() as $error)
+						                    <li>{{$error}}</li>
+						                @endforeach
+						            </ul>
+						        </div>
+						    @endif
+						</div>
+					</div>
 					<h4>Comments</h4>
 					<form action="{{route('comments.store')}}" method="POST" accept-charset="utf-8" class="clearfix">
 						<div class="form-group">
